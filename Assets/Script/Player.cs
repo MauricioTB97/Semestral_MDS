@@ -80,15 +80,13 @@ public class Player : MonoBehaviour
     void Disparar()
     {
         nextFireTime = Time.time + fireRate;
-        // Determinar la dirección del disparo
         Vector3 direccion = transform.localScale.x > 0 ? Vector3.right : Vector3.left;
 
         GameObject bala = Instantiate(proyectil, transform.position, Quaternion.identity);
         Rigidbody2D rbBala = bala.GetComponent<Rigidbody2D>();
-        rbBala.velocity = direccion * 10f; // Ajusta la velocidad del proyectil según tu necesidad
+        rbBala.velocity = direccion * 10f; 
         if (direccion == Vector3.left)
         {
-            // Si la dirección es hacia la izquierda, reflejar el sprite horizontalmente
             Vector3 escala = bala.transform.localScale;
             escala.x *= -1;
             bala.transform.localScale = escala;
@@ -113,12 +111,10 @@ public class Player : MonoBehaviour
     bool IsGrounded()
     {
         RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center, new Vector2(boxCollider.bounds.size.x - 0.9f, boxCollider.bounds.size.y), 0f, Vector2.down, 0.1f, groundLayer);
-        //Debug.Log(hit.collider);
         return hit.collider != null;
 
     }
 
-    //jump perk, key, activadores de enemigos
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == ("Perk-Jump"))
